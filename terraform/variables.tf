@@ -1,11 +1,14 @@
 variable "app" {}
 variable "service_name" {}
+variable "trello_api_key" {}
+variable "trello_oauth_token" {}
+variable "trello_member_id" {}
 
 variable "aws-region" {
     default = "eu-west-1"
     description = "Ireland"
 }
-variable "personal_token" {
+variable "github_personal_token" {
     default = "TOKEN_HERE"
     description = "github personal token"  
 }

@@ -13,7 +13,7 @@ provider "aws" {
 resource "aws_codebuild_source_credential" "github_token" {
   auth_type = "PERSONAL_ACCESS_TOKEN"
   server_type = "GITHUB"
-  token = var.personal_token
+  token = var.github_personal_token
 }
 ##
 
@@ -87,6 +87,18 @@ resource "aws_codebuild_project" "codebuild" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = "true"
+    environment_variable {
+      name  = "TRELLO_API_KEY"
+      value = var.trello_api_key
+    }
+    environment_variable {
+      name  = "TRELLO_OAUTH_TOKEN"
+      value = var.trello_oauth_token
+    }
+    environment_variable {
+      name  = "MEMBER_ID"
+      value = var.trello_member_id
+    }
   }
   logs_config {
     cloudwatch_logs {
