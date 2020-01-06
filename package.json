@@ -1,10 +1,9 @@
 {
-  "name": "perfsys_trello_aws_estimates",
+  "name": "trello-reminder",
   "version": "1.0.0",
-  "description": "AWS Serverless function to calculate actual and planned estimates and update List name",
+  "description": "AWS Serverless function for remind about trello cards",
   "main": "handler.js",
   "dependencies": {
-    "dotenv": "^8.2.0",
     "trello": "^0.9.1"
   },
   "devDependencies": {

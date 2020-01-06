@@ -1,6 +1,5 @@
 'use strict';
 const Trello = require("trello");
-require("dotenv").config();
 
 const apiKey = process.env.TRELLO_API_KEY;
 const oauthToken = process.env.TRELLO_OAUTH_TOKEN;

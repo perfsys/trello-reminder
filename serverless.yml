@@ -4,21 +4,20 @@ custom:
   service: ${file(./config.json):service}
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, '${file(./config.json):region}'}
-  leadGenerationReportTable: ${self:service}-leadGenerationReport-${self:custom.stage}
-  developerWeeklyReportTable: ${self:service}-developerWeeklyReport-${self:custom.stage}
 
 provider:
   name: aws
-  profile: perfsys
   runtime: nodejs10.x
   stage: ${self:custom.stage}
   region: ${self:custom.region}
 
-# The `functions` block defines what code to deploy
 functions:
   runReminder:
     handler: handler.runReminder
-    # The `events` block defines how to trigger the handler.helloWorld code
+    environment:
+      TRELLO_API_KEY: ${env:TRELLO_API_KEY}
+      TRELLO_OAUTH_TOKEN: ${env:TRELLO_OAUTH_TOKEN}
+      MEMBER_ID: ${env:MEMBER_ID}
     events:
       - schedule:
           name: perfsys-trello-reminder-runReminder-rate-event
