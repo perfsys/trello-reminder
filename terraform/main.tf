@@ -60,7 +60,10 @@ resource "aws_iam_role_policy" "codebuild_iam_role_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "cloudformation:DescribeStacks"
+        "s3:*",
+        "iam:*",
+        "lambda:*",
+        "cloudformation:*"
       ],
       "Resource": "*"
     }
