@@ -63,6 +63,7 @@ resource "aws_iam_role_policy" "codebuild_iam_role_policy" {
         "s3:*",
         "iam:*",
         "lambda:*",
+        "events:*",
         "cloudformation:*"
       ],
       "Resource": "*"

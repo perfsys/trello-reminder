@@ -23,5 +23,5 @@ functions:
       - schedule:
           name: perfsys-trello-reminder-runReminder-rate-event
           description: 'perfsys-trello-reminder-runReminder-rate-event'
-          rate: rate(2 minutes)
+          rate: rate(30 minutes)
           enabled: true

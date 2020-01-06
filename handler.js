@@ -40,8 +40,6 @@ const getListsArray = async (array) => {
 }
 
 const checkName = async (array) => {
-    let result = [];
-
     for (let i = 0; i < array.length; i++) {
         console.log("List name: " + array[i]);
         try {
@@ -62,11 +60,9 @@ const checkName = async (array) => {
                 for (let j = 0; j < cards.length; j++) {
                     let timeOfLastChange = new Date(cards[j].dateLastActivity);
                     let interval = Math.floor((currentTime - timeOfLastChange) / 1000 / 60)
-                    // result.push(cards)
                     if (interval >= time[0]) {
-                        console.log('make comment')
                         await addComment(cards[j].id, cards[j].idMembers)
-                        // result.push(cards[j]) //"make comment"
+                        console.log('make comment')
                     } else {
                         console.log("don't make comment")
                     }
@@ -78,7 +74,6 @@ const checkName = async (array) => {
         }
     }
 
-    return result;
 }
 
 const getCardsOfList = async (listId) => {
@@ -97,7 +92,7 @@ const getCardsOfList = async (listId) => {
 const addComment = async (cardId) => {
 
     try {
-        await trello.addCommentToCard(cardId, `@ Updated`);
+        await trello.addCommentToCard(cardId, `Update me`);
     } catch (error) {
         if (error) {
             console.log('error ', error);
@@ -109,13 +104,8 @@ const addComment = async (cardId) => {
 module.exports.runReminder = async (event, context) => {
     let boardArray = await getBoards(memberId);
     let listsArray = await getListsArray(boardArray);
-    let itemArray = [];
 
     for (let i = 0; i < listsArray.length; i++) {
-        let data = await checkName(listsArray[i]);
-
-        if (data.length !== 0) {
-            itemArray.push(data);
-        }
+        await checkName(listsArray[i]);
     }
 };
