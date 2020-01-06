@@ -43,32 +43,38 @@ const checkName = async (array) => {
     let result = [];
 
     for (let i = 0; i < array.length; i++) {
-        let match = array[i].name.match(/\| \d{1,3}[hm]/g);
-        if (match) {
-            let remindPeriod = match[0].split(' ');
-            console.log(remindPeriod)
-            let time = remindPeriod[1].match(/\d{1,3}/g)
-            let period = remindPeriod[1].match(/[hm]/g)
-            let cards = await getCardsOfList(array[i].id)
+        console.log("List name: " + array[i]);
+        try {
+            let match = array[i].name.match(/\| \d{1,3}[hm]/g);
+            if (match) {
+                let remindPeriod = match[0].split(' ');
+                console.log(remindPeriod)
+                let time = remindPeriod[1].match(/\d{1,3}/g)
+                let period = remindPeriod[1].match(/[hm]/g)
+                let cards = await getCardsOfList(array[i].id)
 
-            if (period[0] == "h") {
-                time[0] = Number(time[0]) * 60;
-            }
+                if (period[0] === "h") {
+                    time[0] = Number(time[0]) * 60;
+                }
 
-            let currentTime = new Date();
+                let currentTime = new Date();
 
-            for (let j = 0; j < cards.length; j++) {
-                let timeOfLastChange = new Date(cards[j].dateLastActivity);
-                let interval = Math.floor((currentTime - timeOfLastChange) / 1000 / 60)
-                // result.push(cards)
-                if (interval >= time[0]) {
-                    console.log('make comment')
-                    await addComment(cards[j].id, cards[j].idMembers)
-                    // result.push(cards[j]) //"make comment"
-                } else {
-                    console.log("don't make comment")
+                for (let j = 0; j < cards.length; j++) {
+                    let timeOfLastChange = new Date(cards[j].dateLastActivity);
+                    let interval = Math.floor((currentTime - timeOfLastChange) / 1000 / 60)
+                    // result.push(cards)
+                    if (interval >= time[0]) {
+                        console.log('make comment')
+                        await addComment(cards[j].id, cards[j].idMembers)
+                        // result.push(cards[j]) //"make comment"
+                    } else {
+                        console.log("don't make comment")
+                    }
                 }
             }
+        } catch (e) {
+            console.log(e)
+            console.log("Can't update the list: " + array[i])
         }
     }
 
@@ -108,7 +114,7 @@ module.exports.runReminder = async (event, context) => {
     for (let i = 0; i < listsArray.length; i++) {
         let data = await checkName(listsArray[i]);
 
-        if (data.length != 0) {
+        if (data.length !== 0) {
             itemArray.push(data);
         }
     }
