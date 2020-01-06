@@ -22,13 +22,13 @@ const getBoards = async () => {
     return boardsArray;
 }
 
-const getCardsArray = async (array) => {
+const getListsArray = async (array) => {
     let boardId;
     let response = [];
     for (let i = 0; i < array.length; i++) {
         boardId = array[i].id
         try {
-            let data = await trello.getCardsOnBoard(boardId);
+            let data = await trello.getListsOnBoard(boardId);
             response.push(data)
         } catch (error) {
             if (error) {
@@ -45,27 +45,30 @@ const checkName = async (array) => {
 
     for (let i = 0; i < array.length; i++) {
         let match = array[i].name.match(/\| \d{1,3}[hm]/g);
-
         if (match) {
             let remindPeriod = match[0].split(' ');
             console.log(remindPeriod)
             let time = remindPeriod[1].match(/\d{1,3}/g)
             let period = remindPeriod[1].match(/[hm]/g)
+            let cards = await getCardsOfList(array[i].id)
 
             if (period[0] == "h") {
                 time[0] = Number(time[0]) * 60;
             }
-            let currentTime = new Date();
-            let timeOfLastChange = new Date(array[i].dateLastActivity);
-            let interval = Math.floor((currentTime - timeOfLastChange) / 1000 / 60)
 
-            if (interval >= time[0]) {
-                // console.log('make comment')
-                await addComment(array[i].id, array[i].idMembers)
-                result.push('make comment')
-            } else {
-                // console.log("don't make comment")
-                result.push("don't make comment")
+            let currentTime = new Date();
+
+            for (let j = 0; j < cards.length; j++) {
+                let timeOfLastChange = new Date(cards[j].dateLastActivity);
+                let interval = Math.floor((currentTime - timeOfLastChange) / 1000 / 60)
+                // result.push(cards)
+                if (interval >= time[0]) {
+                    console.log('make comment')
+                    await addComment(cards[j].id, cards[j].idMembers)
+                    // result.push(cards[j]) //"make comment"
+                } else {
+                    console.log("don't make comment")
+                }
             }
         }
     }
@@ -73,11 +76,23 @@ const checkName = async (array) => {
     return result;
 }
 
+const getCardsOfList = async (listId) => {
+    let response = [];
+    try {
+        response = await trello.getCardsOnList(listId);
+    } catch (error) {
+        if (error) {
+            console.log('error ', error);
+        }
+    }
+
+    return response;
+}
+
 const addComment = async (cardId) => {
-    let time = new Date(Date.now()).toLocaleString();
 
     try {
-        await trello.addCommentToCard(cardId, `@ Follow up`);
+        await trello.addCommentToCard(cardId, `@ Updated`);
     } catch (error) {
         if (error) {
             console.log('error ', error);
@@ -85,13 +100,14 @@ const addComment = async (cardId) => {
     }
 }
 
+
 module.exports.runReminder = async (event, context) => {
-    let boardArray = await getBoards();
-    let cardsArray = await getCardsArray(boardArray);
+    let boardArray = await getBoards(memberId);
+    let listsArray = await getListsArray(boardArray);
     let itemArray = [];
 
-    for (let i = 0; i < cardsArray.length; i++) {
-        let data = await checkName(cardsArray[i]);
+    for (let i = 0; i < listsArray.length; i++) {
+        let data = await checkName(listsArray[i]);
 
         if (data.length != 0) {
             itemArray.push(data);

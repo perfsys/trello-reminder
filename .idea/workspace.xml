@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9df32ff5-f794-44d1-bd00-2d1b24ee4aab" name="Default Changelist" comment="" />
+    <list default="true" id="9df32ff5-f794-44d1-bd00-2d1b24ee4aab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/handler.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1VEqWh0dVu7XgGRwSGUqM3yewSD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -15,6 +23,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -46,7 +55,8 @@
       <updated>1576828634925</updated>
       <workItem from="1576828637242" duration="5437000" />
       <workItem from="1577348069008" duration="2575000" />
-      <workItem from="1577354055771" duration="1060000" />
+      <workItem from="1577354055771" duration="6902000" />
+      <workItem from="1578306074265" duration="1149000" />
     </task>
     <servers />
   </component>
@@ -54,6 +64,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="592" y="135" key="CommitChangelistDialog2" timestamp="1577357264881">
+      <screen x="72" y="0" width="1848" height="1080" />
+    </state>
+    <state x="592" y="135" key="CommitChangelistDialog2/72.0.1848.1080@72.0.1848.1080" timestamp="1577357264881" />
+    <state width="647" height="208" key="Git.Branch.Popup" timestamp="1577357252705">
+      <screen x="72" y="0" width="1848" height="1080" />
+    </state>
+    <state width="647" height="208" key="Git.Branch.Popup/72.0.1848.1080@72.0.1848.1080" timestamp="1577357252705" />
+    <state x="592" y="274" key="Vcs.Push.Dialog.v2" timestamp="1577357272756">
+      <screen x="72" y="0" width="1848" height="1080" />
+    </state>
+    <state x="592" y="274" key="Vcs.Push.Dialog.v2/72.0.1848.1080@72.0.1848.1080" timestamp="1577357272756" />
     <state x="675" y="367" key="com.intellij.ide.util.TipDialog" timestamp="1577354335550">
       <screen x="72" y="0" width="1848" height="1080" />
     </state>
