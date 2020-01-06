@@ -8,24 +8,24 @@ const memberId = process.env.MEMBER_ID;
 const trello = new Trello(apiKey, oauthToken);
 
 const getBoards = async () => {
-    let boardsArray = [];
+    let boards = [];
 
     try {
-        boardsArray = await trello.getBoards(memberId);
+        boards = await trello.getBoards(memberId);
     } catch (error) {
         if (error) {
             console.log('error ', error);
         }
     }
 
-    return boardsArray;
+    return boards;
 }
 
-const getListsArray = async (array) => {
+const getLists = async (boards) => {
     let boardId;
     let response = [];
-    for (let i = 0; i < array.length; i++) {
-        boardId = array[i].id
+    for (let i = 0; i < boards.length; i++) {
+        boardId = boards[i].id
         try {
             let data = await trello.getListsOnBoard(boardId);
             response.push(data)
@@ -41,7 +41,7 @@ const getListsArray = async (array) => {
 
 const checkName = async (array) => {
     for (let i = 0; i < array.length; i++) {
-        console.log("List name: " + array[i]);
+        console.log("List name: " + JSON.stringify(array[i], null, 4));
         try {
             let match = array[i].name.match(/\| \d{1,3}[hm]/g);
             if (match) {
@@ -102,10 +102,11 @@ const addComment = async (cardId) => {
 
 
 module.exports.runReminder = async (event, context) => {
-    let boardArray = await getBoards(memberId);
-    let listsArray = await getListsArray(boardArray);
+    let boards = await getBoards(memberId);
+    let lists = await getLists(boards);
+    console.log(lists);
 
-    for (let i = 0; i < listsArray.length; i++) {
-        await checkName(listsArray[i]);
+    for (let i = 0; i < lists.length; i++) {
+        await checkName(lists[i]);
     }
 };
