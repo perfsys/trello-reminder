@@ -112,9 +112,26 @@ resource "aws_codebuild_project" "codebuild" {
     location        = var.github_url
     git_clone_depth = 1
     buildspec       = "buildspec.yml"
+
     auth {
         type = "OAUTH"
         resource = aws_codebuild_source_credential.github_token.arn
+    }
+  }
+}
+
+resource "aws_codebuild_webhook" "webhook_dev" {
+  project_name = aws_codebuild_project.codebuild.name
+
+  filter_group {
+    filter {
+      type = "EVENT"
+      pattern = "PUSH"
+    }
+
+    filter {
+      type = "HEAD_REF"
+      pattern = "dev"
     }
   }
 }
